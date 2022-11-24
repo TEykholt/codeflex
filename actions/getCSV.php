@@ -1,9 +1,9 @@
 <?php
 //Load CSV in read mode
+$configs = require_once ('config.php');
 $CSVfp = fopen("content/Programming_Test_2_1.csv", "r");
-//Check if csv exists
 if ($CSVfp !== FALSE) {
-    ?>
+?>
     <div class="csv-container">
         <table>
             <thead>
@@ -13,11 +13,12 @@ if ($CSVfp !== FALSE) {
                 <th>Brand</th>
                 <th>Color</th>
                 <th>Price</th>
+                <th>Price with tax</th>
             </tr>
             </thead>
             <?php
-            //Remove header from CSV
-            $data = fgetcsv($CSVfp, 1000, ",");
+                    //Remove header from CSV
+                    $data = fgetcsv($CSVfp, 1000, ",");
             //Loop through csv file
             while (! feof($CSVfp)) {
                 $data = fgetcsv($CSVfp, 1000, ",");
@@ -39,6 +40,12 @@ if ($CSVfp !== FALSE) {
                         <td>
                             <?php echo '€'.number_format($data[4], 2); ?>
                         </td>
+                        <td>
+                            <?php
+                                $btwprice = ($data[4] / 100 * $configs['tax_cost'])  + $data[4];
+                                echo '€'.number_format($btwprice, 2);
+                            ?>
+                        </td>
                     </tr>
                 <?php }?>
                 <?php
@@ -46,8 +53,6 @@ if ($CSVfp !== FALSE) {
             ?>
         </table>
     </div>
-    <?php
+<?php
 }
-// Close CSV file reader
-fclose($CSVfp);
-?>
+    fclose($CSVfp);

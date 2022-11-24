@@ -6,7 +6,7 @@
 </head>
 <body>
     <?php
-        include 'getCSV.php';
+        include 'actions/getCSV.php';
     ?>
 </body>
 </html>
