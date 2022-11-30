@@ -34,7 +34,6 @@ else if (isset($_POST["quantitynl"])) {
     $result = $conn->query($query);
 }
 
-
 if (isset($_POST["id"], $_POST["description"], $_POST["brand"])) {
     $query = "SELECT * FROM parts WHERE id LIKE '%$_POST[id]%' AND description LIKE '%$_POST[description]%' AND brand LIKE '%$_POST[brand]%' ";
 }
@@ -50,6 +49,8 @@ else{
 
 }
 
+
+$query = "SELECT * FROM parts LIMIT $start_from, $per_page_record";
 $result = $conn->query($query);
 ?>
 <div class="csv-container">
@@ -143,4 +144,3 @@ $result = $conn->query($query);
     $conn->close();
 
 ?>
-
