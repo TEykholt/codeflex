@@ -1,0 +1,10 @@
+Index: actions/updateQuantity.php
+===================================================================
+diff --git a/actions/updateQuantity.php b/actions/updateQuantity.php
+new file mode 100644
+--- /dev/null	
++++ b/actions/updateQuantity.php	
+@@ -0,0 +1,3 @@
++<?php
++$conn = require '../includes/dbConnect.php';
++

@@ -23,6 +23,17 @@ function sortorder($fieldname){
     return $sorturl;
 }
 
+ if (isset($_POST["quantitynovisad"])) {
+     $page = $_POST["quantitynovisad"];
+     $query = "UPDATE parts SET quantitynovisad = ".$_POST["quantitynovisad"]." WHERE id LIKE ".$_POST["id"];
+     $result = $conn->query($query);
+ }
+else if (isset($_POST["quantitynl"])) {
+    $page = $_POST["quantitynl"];
+    $query = "UPDATE parts SET quantitynl = ".$_POST["quantitynl"]." WHERE id LIKE ".$_POST["id"];
+    $result = $conn->query($query);
+}
+
 if (isset($_POST["id"], $_POST["description"], $_POST["brand"])) {
     $query = "SELECT * FROM parts WHERE id LIKE '%$_POST[id]%' AND description LIKE '%$_POST[description]%' AND brand LIKE '%$_POST[brand]%' ";
 }
@@ -38,6 +49,7 @@ else{
 
 }
 
+
 $query = "SELECT * FROM parts LIMIT $start_from, $per_page_record";
 $result = $conn->query($query);
 ?>
@@ -51,6 +63,8 @@ $result = $conn->query($query);
             <th><a href="<?php echo sortorder('color'); ?>" class="sort">Color</a></th>
             <th><a href="<?php echo sortorder('price'); ?>" class="sort">Price</a></th>
             <th>Price with tax</th>
+            <th>Quantity Novi Sad</th>
+            <th>Quantity NL</th>
         </tr>
         </thead>
     <?php
@@ -58,7 +72,7 @@ $result = $conn->query($query);
         // output data of each row
         while($row = $result->fetch_assoc()) {
             ?>
-                        <tr class="data">
+                        <tr <?php if( $row['quantitynovisad'] == 0 || $row['quantitynl'] == 0 ) {echo "style='background-color: red;'" ;}?> class="data">
                             <td>
                                 <?php echo $row['id']; ?>
                             </td>
@@ -79,6 +93,12 @@ $result = $conn->query($query);
                                     $btwprice = ($row['price'] / 100 * $_ENV['TAX_COST'])  + $row['price'];
                                     echo '€'.number_format($btwprice, 2);
                                 ?>
+                            </td>
+                            <td>
+                               <form method='post' action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"><?php echo "<input type='text' name='quantitynovisad' value='". $row['quantitynovisad'] . "'/><input hidden  type='text' name='id' value='". $row['id'] . "'><input  type='submit' name='submit' value='Update'></form>"?>
+                            </td>
+                            <td>
+                                <form method='post' action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"><?php echo "<input type='text' name='quantitynl' value='". $row['quantitynl'] . "'/><input hidden  type='text' name='id' value='". $row['id'] . "'><input  type='submit' name='submit' value='Update'></form>"?>
                             </td>
                         </tr>
             <?php
