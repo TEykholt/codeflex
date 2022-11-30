@@ -1,5 +1,5 @@
 <?php
-$conn = require_once( 'includes/dbConnect.php');
+$conn = require 'includes/dbConnect.php';
 
 $per_page_record = $_ENV['RECORDS_PER_PAGE'];
 if (isset($_GET["page"])) {
@@ -9,6 +9,34 @@ if (isset($_GET["page"])) {
 }
 
 $start_from = ($page - 1) * $per_page_record;
+$query = null;
+// generating orderby and sort url for table header
+function sortorder($fieldname){
+    $sorturl = "?order_by=".$fieldname."&sort=";
+    $sorttype = "asc";
+    if(isset($_GET['order_by']) && $_GET['order_by'] == $fieldname){
+        if(isset($_GET['sort']) && $_GET['sort'] == "asc"){
+            $sorttype = "desc";
+        }
+    }
+    $sorturl .= $sorttype;
+    return $sorturl;
+}
+
+if (isset($_POST["id"], $_POST["description"], $_POST["brand"])) {
+    $query = "SELECT * FROM parts WHERE id LIKE '%$_POST[id]%' AND description LIKE '%$_POST[description]%' AND brand LIKE '%$_POST[brand]%' ";
+}
+else{
+    if(isset($_GET['order_by']) && isset($_GET['sort'])){
+        $orderby = ' order by '.$_GET['order_by'].' '.$_GET['sort'];
+        $query = "SELECT * FROM parts ".$orderby." LIMIT $start_from, $per_page_record ";
+    }
+    else{
+        $query = "SELECT * FROM parts LIMIT $start_from, $per_page_record ";
+    }
+
+
+}
 
 $query = "SELECT * FROM parts LIMIT $start_from, $per_page_record";
 $result = $conn->query($query);
@@ -17,11 +45,11 @@ $result = $conn->query($query);
     <table>
         <thead>
         <tr>
-            <th>GTIN-Number</th>
-            <th>Description</th>
-            <th>Brand</th>
-            <th>Color</th>
-            <th>Price</th>
+            <th><a href="<?php echo sortorder('id'); ?>" class="sort">GTIN-Number</a></th>
+            <th><a href="<?php echo sortorder('description'); ?>" class="sort">Description</a></th>
+            <th><a href="<?php echo sortorder('brand'); ?>" class="sort">Brand</a></th>
+            <th><a href="<?php echo sortorder('color'); ?>" class="sort">Color</a></th>
+            <th><a href="<?php echo sortorder('price'); ?>" class="sort">Price</a></th>
             <th>Price with tax</th>
         </tr>
         </thead>
