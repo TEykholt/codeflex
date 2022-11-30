@@ -38,6 +38,7 @@ else{
 
 }
 
+$query = "SELECT * FROM parts LIMIT $start_from, $per_page_record";
 $result = $conn->query($query);
 ?>
 <div class="csv-container">
@@ -123,4 +124,3 @@ $result = $conn->query($query);
     $conn->close();
 
 ?>
-
