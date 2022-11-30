@@ -1,4 +1,5 @@
 <?php
+require 'includes/convertCurrency.php';
 $conn = require 'includes/dbConnect.php';
 
 $per_page_record = $_ENV['RECORDS_PER_PAGE'];
@@ -45,11 +46,7 @@ else{
     else{
         $query = "SELECT * FROM parts LIMIT $start_from, $per_page_record ";
     }
-
-
 }
-
-
 $query = "SELECT * FROM parts LIMIT $start_from, $per_page_record";
 $result = $conn->query($query);
 ?>
@@ -61,7 +58,7 @@ $result = $conn->query($query);
             <th><a href="<?php echo sortorder('description'); ?>" class="sort">Description</a></th>
             <th><a href="<?php echo sortorder('brand'); ?>" class="sort">Brand</a></th>
             <th><a href="<?php echo sortorder('color'); ?>" class="sort">Color</a></th>
-            <th><a href="<?php echo sortorder('price'); ?>" class="sort">Price</a></th>
+            <th><a href="<?php echo sortorder('price'); ?>" class="sort">Price<?php if(isset($_POST["currency"])){ echo " in ".$_POST["currency"]; }?></a></th>
             <th>Price with tax</th>
             <th>Quantity Novi Sad</th>
             <th>Quantity NL</th>
@@ -71,6 +68,9 @@ $result = $conn->query($query);
     if ($result->num_rows > 0) {
         // output data of each row
         while($row = $result->fetch_assoc()) {
+            if(isset($_POST['currency'])){
+                $row["price"] = convertCurrency($row["price"], $_POST['currency']);
+            }
             ?>
                         <tr <?php if( $row['quantitynovisad'] == 0 || $row['quantitynl'] == 0 ) {echo "style='background-color: red;'" ;}?> class="data">
                             <td>
@@ -86,12 +86,12 @@ $result = $conn->query($query);
                                 <?php echo $row['color']; ?>
                             </td>
                             <td>
-                                <?php echo '€'.number_format($row['price'], 2); ?>
+                                <?php echo number_format($row['price'], 2); ?>
                             </td>
                             <td>
                                 <?php
                                     $btwprice = ($row['price'] / 100 * $_ENV['TAX_COST'])  + $row['price'];
-                                    echo '€'.number_format($btwprice, 2);
+                                    echo number_format($btwprice, 2);
                                 ?>
                             </td>
                             <td>
