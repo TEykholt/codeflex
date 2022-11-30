@@ -96,4 +96,3 @@ $result = $conn->query($query);
     $conn->close();
 
 ?>
-
