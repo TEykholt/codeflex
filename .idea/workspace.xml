@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="af9b4a8d-3d5c-46a2-a61a-d9a26615d65b" name="Changes" comment="" />
+    <list default="true" id="af9b4a8d-3d5c-46a2-a61a-d9a26615d65b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/includes/convertCurrency.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/actions/getData.php" beforeDir="false" afterPath="$PROJECT_DIR$/actions/getData.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,7 +27,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feature/2.5-Search&amp;Sort" />
+        <entry key="$PROJECT_DIR$" value="feature/2.6-Inventory" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -63,9 +69,10 @@
       <recent name="C:\wamp64\www\codeflex\content" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\wamp64\www\codeflex\SQLDump" />
-      <recent name="C:\wamp64\www\codeflex" />
       <recent name="C:\wamp64\www\codeflex\includes" />
+      <recent name="C:\wamp64\www\codeflex\SQL_dump" />
+      <recent name="C:\wamp64\www\codeflex" />
+      <recent name="C:\wamp64\www\codeflex\SQLDump" />
       <recent name="C:\wamp64\www\codeflex\actions" />
     </key>
   </component>
@@ -82,7 +89,7 @@
       <workItem from="1669322791782" duration="3550000" />
       <workItem from="1669487063493" duration="2240000" />
       <workItem from="1669800171166" duration="4259000" />
-      <workItem from="1669823336573" duration="2476000" />
+      <workItem from="1669823336573" duration="4996000" />
     </task>
     <servers />
   </component>
